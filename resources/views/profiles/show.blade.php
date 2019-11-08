@@ -3,12 +3,13 @@
 @section('content')
 <div class="container">
     <div class="row mt-4">
+        {{ dump($user) }}
         <div class="col-4 text-center">
                 <img class="rounded-circle" src="https://cdn.iconscout.com/icon/free/png-512/laravel-226015.png" width="214px"/>
         </div>
         <div class="col-8">
-            <div class="d-flex">
-                <div class="h4 mr-3 pt-3">laravel_official</div>
+            <div class="d-flex align-items-baseline">
+                <div class="h4 mr-3 pt-3">{{ $user->username }}</div>
                 <button class="btn btn-sm btn-primary">
                     S'abonner
                 </button>
@@ -19,9 +20,9 @@
                 <div class="mr-3"><strong>X</strong> abonnements</div>
             </div>
             <div class="mt-3">
-                <div>Laravel Framework</div>
-                <div>Love beautiful code ? We do too.</div>
-                <a href="https://laravel.com/">https://laravel.com</a>
+                <div class="font-weight-bold">{{ $user->profile->title }}</div>
+                <div>{{ $user->profile->description }}</div>
+                <a href="{{ $user->profile->title }}">{{ $user->profile->url }}/a>
             </div>
         </div>
     </div>
