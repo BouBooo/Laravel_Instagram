@@ -28,8 +28,10 @@
     </div>
     <div class="row mt-5">
         @foreach ($user->posts as $post)
-        <div class="col-4">
-            <img class="w-100" src="{{ asset('storage') . '/' . $post->image }}"/>
+        <div class="col-4 mt-3">
+            <a href="{{ route('posts.show', ['post' => $post->id]) }}">
+                <img class="w-100" src="{{ asset('storage') . '/' . $post->image }}"/>
+            </a>
         </div>
         @endforeach
     </div>

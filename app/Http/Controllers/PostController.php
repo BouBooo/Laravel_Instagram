@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class PostController extends Controller
 {
@@ -20,6 +22,9 @@ class PostController extends Controller
             'image' => ['required', 'image']
         ]);
         $imgPath = request('image')->store('uploads', 'public');
+        
+        $img = Image::make(public_path("/storage/{$imgPath}"))->fit(1200, 1200);
+        $img->save();
 
         auth()->user()->posts()->create([
             'caption' => $data['caption'],
@@ -29,5 +34,9 @@ class PostController extends Controller
         return redirect()->route('profiles.show', [
             'user' => auth()->user()
         ]);
+    }
+
+    public function show(Post $post) {
+       return view('posts.show', compact('post'));
     }
 }
