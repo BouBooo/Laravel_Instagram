@@ -3,7 +3,6 @@
 @section('content')
 <div class="container">
     <div class="row mt-4">
-        {{ dump($user) }}
         <div class="col-4 text-center">
                 <img class="rounded-circle" src="https://cdn.iconscout.com/icon/free/png-512/laravel-226015.png" width="214px"/>
         </div>
@@ -19,6 +18,7 @@
                 <div class="mr-3"><strong>X</strong> abonnés</div>
                 <div class="mr-3"><strong>X</strong> abonnements</div>
             </div>
+            <a class="btn btn-outline-secondary mt-3" href="{{ route('profiles.edit', ['username' => $user->username]) }}">Modifier mes informations</a>
             <div class="mt-3">
                 <div class="font-weight-bold">{{ $user->profile->title }}</div>
                 <div>{{ $user->profile->description }}</div>
