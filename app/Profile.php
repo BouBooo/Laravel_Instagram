@@ -9,6 +9,11 @@ class Profile extends Model
     protected $guarded = [];
     
     public function user() {
-        return $this->hasOne('App\User');
+        return $this->belongsTo('App\User');
+    }
+
+    public function getImage() {
+        $imgPath = $this->image ?? 'avatars/default.png';
+        return "/storage/" . $imgPath;
     }
 }

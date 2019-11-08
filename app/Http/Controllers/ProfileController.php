@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Profile;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class ProfileController extends Controller
 {
@@ -13,37 +14,35 @@ class ProfileController extends Controller
     }
 
     public function edit(User $user) {
-        if($user == auth()->user()) {
-            return view('profiles.edit', compact('user'));
-        } else {
-            return redirect()->route('profiles.show', ['user' => $user]);
-        }
-        
+        $this->authorize('update', $user->profile);
+        return view('profiles.edit', compact('user'));
     }
 
     public function update(User $user) {
-        if($user == auth()->user()) {
-            $data = request()->validate([
-                'title' => 'required',
-                'description' => 'required',
-                'url' => 'required|url'
-            ]);
-    
-            auth()->user()->profile->update($data);
-    
-            return redirect()->route('profiles.show', [
-                'user' => $user
-            ]);
-        } else {
-            return redirect()->route('profiles.show', ['user' => $user]);
-        }
-    }
+        $this->authorize('update', $user->profile);    
+        $data = request()->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'url' => 'required|url',
+            'image' => 'sometimes|image|max:3000'
+        ]);
 
-    public function authHandler(User $user, Profile $profile) {
-        if($user->username == $profile->user->username) {
-            redirect()->route('profiles.edit', ['user' => $user]);
+        // If update avatar
+        if(request('image')) {
+            $imgPath = request('image')->store('avatars', 'public');
+            $img = Image::make(public_path("/storage/{$imgPath}"))->fit(800, 800);
+            $img->save();
+
+            auth()->user()->profile->update(array_merge(
+                $data,
+                ['image' => $imgPath]
+            ));
         } else {
-            redirect()->route('profiles.show', ['user' => $user]);
+            auth()->user()->profile->update($data);
         }
+
+        return redirect()->route('profiles.show', [
+            'user' => $user
+        ]);
     }
 }
