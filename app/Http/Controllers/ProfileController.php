@@ -10,12 +10,11 @@ use Intervention\Image\Facades\Image;
 class ProfileController extends Controller
 {
     public function show(User $user) {
-        $isFollowing = (auth()->user()) 
+        $follows = (auth()->user()) 
             ? auth()->user()->following->contains($user->profile->id) 
-            : false
-        ;
+            : false;
 
-        return view('profiles.show', compact('user', 'isFollowing'));
+        return view('profiles.show', compact('user', 'follows'));
     }
 
     public function edit(User $user) {

@@ -1844,13 +1844,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['profileId', 'isFollowing'],
+  props: ['profileId', 'follows'],
   data: function data() {
     return {
-      status: this.isFollowing
+      status: this.follows
     };
   },
   methods: {
@@ -1859,8 +1857,8 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.post('/follows/' + this.profileId).then(function (response) {
         _this.status = !_this.status;
-      })["catch"](function (err) {
-        if (err.response.status === 401) {
+      })["catch"](function (errors) {
+        if (errors.response.status === 401) {
           window.location = '/login';
         }
       });
@@ -1868,7 +1866,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     follow: function follow() {
-      return this.status ? 'Ne plus suivre' : 'S\'abonner';
+      return this.status ? 'Ne plus suivre' : 'Suivre';
     }
   }
 });
@@ -37182,15 +37180,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "button",
-      {
-        staticClass: "btn btn-sm btn-primary",
-        domProps: { textContent: _vm._s(_vm.follow) },
-        on: { click: _vm.followProfile }
-      },
-      [_vm._v("\n        S'abonner\n    ")]
-    )
+    _c("button", {
+      staticClass: "btn btn-sm btn-primary",
+      domProps: { textContent: _vm._s(_vm.follow) },
+      on: { click: _vm.followProfile }
+    })
   ])
 }
 var staticRenderFns = []
