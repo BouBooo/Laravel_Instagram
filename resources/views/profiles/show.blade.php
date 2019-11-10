@@ -9,14 +9,12 @@
         <div class="col-8">
             <div class="d-flex align-items-baseline">
                 <div class="h4 mr-3 pt-3">{{ $user->username }}</div>
-                <button class="btn btn-sm btn-primary">
-                    S'abonner
-                </button>
+                <follow-button profile-id="{{ $user->profile->id }}" follows="{{ $isFollowing }}"></follow-button>
             </div>
             <div class="d-flex mt-3">
                 <div class="mr-3"><strong>{{ count($user->posts) }}</strong> publication(s) </div>
-                <div class="mr-3"><strong>X</strong> abonnés</div>
-                <div class="mr-3"><strong>X</strong> abonnements</div>
+                <div class="mr-3"><strong>{{ count($user->profile->followers) }}</strong> abonnés</div>
+                <div class="mr-3"><strong>{{ count($user->following) }}</strong> abonnements</div>
             </div>
             <a class="btn btn-outline-secondary mt-3" href="{{ route('profiles.edit', ['username' => $user->username]) }}">Modifier mes informations</a>
             <div class="mt-3">
