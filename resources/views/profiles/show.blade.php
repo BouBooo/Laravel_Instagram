@@ -16,7 +16,9 @@
                 <div class="mr-3"><strong>{{ count($user->profile->followers) }}</strong> abonnés</div>
                 <div class="mr-3"><strong>{{ count($user->following) }}</strong> abonnements</div>
             </div>
-            <a class="btn btn-outline-secondary mt-3" href="{{ route('profiles.edit', ['username' => $user->username]) }}">Modifier mes informations</a>
+            @can('update', $user->profile)
+                <a class="btn btn-outline-secondary mt-3" href="{{ route('profiles.edit', ['username' => $user->username]) }}">Modifier mes informations</a>
+            @endcan
             <div class="mt-3">
                 <div class="font-weight-bold">{{ $user->profile->title }}</div>
                 <div>{{ $user->profile->description }}</div>
