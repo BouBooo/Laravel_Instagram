@@ -13,5 +13,5 @@ This website is a replica of Instagram using PHP Laravel framework.
 
 ## Environment
  - Database: MySQL
- - S: Windows
+ - OS: Windows
  - Framework: Laravel
