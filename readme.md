@@ -12,6 +12,6 @@ This website is a replica of Instagram using PHP Laravel framework.
  - Mailing
 
 ## Environment
-Database: MySQL
-OS: Windows
-Framework: Laravel
+ - Database: MySQL
+ - S: Windows
+ - Framework: Laravel
